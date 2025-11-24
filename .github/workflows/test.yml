@@ -1,0 +1,25 @@
+name: test
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: install foundry
+        uses: foundry-rs/foundry-toolchain@v1
+
+      - name: display version
+        run: forge --version
+
+      - name: run forge fmt
+        run: forge fmt --check
+
+      - name: run forge build
+        run: forge build --sizes
+
+      - name: Run forge tests
+        run: forge test -vvv
